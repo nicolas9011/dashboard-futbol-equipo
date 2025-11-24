@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dashboard de gestión de jugadores de fútbol - Proyecto Programación 4">
+  <meta name="keywords" content="futbol, dashboard, estadisticas, jugadores, html, css, js">
+  <meta name="author" content="Nicolas, juanda, jeronimo">
+  <title>Top Club Soccer | Dashboard</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="header">
+    <div class="header__container">
+      <div class="header__text">
+        <span class="header__subtitle">TOP CLUB SOCCER</span>
+        <h1 class="header__title">Dashboard de Jugadores</h1>
+        <p class="header__desc">Gestiona tus estrellas favoritas, analiza estadísticas y descubre talentos.</p>
+      </div>
+      <button id="theme-toggle" class="btn btn--toggle">
+        🌙 Modo oscuro
+      </button>
+    </div>
+  </header>
+
+  <main class="main-content">
+    
+    <section class="search-section">
+      <h2 class="search-section__title">BUSCAR JUGADORES</h2>
+      
+      <div class="search-bar">
+        <div class="search-bar__input-wrapper">
+          <span class="search-bar__icon">🔍</span>
+          <input type="text" id="search-input" class="search-bar__input" placeholder="Escribe un nombre o club...">
+          <button id="search-clear" class="search-bar__clear hidden">✖</button>
+        </div>
+        <button id="search-btn" class="btn btn--outline">Limpiar</button>
+      </div>
+
+      <div class="search-history">
+        <span class="search-history__label">HISTORIAL DE BÚSQUEDA</span>
+        <div id="history-container" class="search-history__chips">
+          </div>
+        <button id="clear-history" class="search-history__clean-btn">Limpiar</button>
+      </div>
+    </section>
+
+    <section class="stats-grid">
+      <div class="card card--highlight">
+        <h3 class="card__title">JUGADORES EN TABLA</h3>
+        <span id="total-players" class="card__value">0</span>
+        <div class="card__badge">Favoritos: <span id="total-favs">0</span></div>
+      </div>
+
+      <div class="card">
+        <h3 class="card__title">PROMEDIO DE GOLES</h3>
+        <span id="avg-goals" class="card__value">0.0</span>
+        <span class="card__subtext">Total goles: <span id="total-goals">0</span></span>
+      </div>
+
+      <div class="card">
+        <h3 class="card__title">PROMEDIO DE EDAD</h3>
+        <span id="avg-age" class="card__value">0 años</span>
+        <span class="card__subtext">Total asistencias: <span id="total-assists">0</span></span>
+      </div>
+
+      <div class="card card--dark">
+        <h3 class="card__title">MÁXIMO GOLEADOR</h3>
+        <span id="top-scorer-name" class="card__value--text">-</span>
+      </div>
+    </section>
+
+    <div class="table-actions">
+      <button id="btn-paint-even" class="btn btn--action">Pintar filas pares</button>
+      <button id="btn-paint-odd" class="btn btn--action">Pintar filas impares</button>
+      <button id="btn-clear-paint" class="btn btn--outline">Limpiar color</button>
+    </div>
+
+    <div class="table-container">
+      <table class="table">
+        <thead class="table__head">
+          <tr>
+            <th class="table__th" data-column="favorite">FAV</th>
+            <th class="table__th sortable" data-column="name">
+              JUGADOR <span class="sort-icon">⇅</span>
+            </th>
+            <th class="table__th sortable" data-column="club">
+              CLUB <span class="sort-icon">⇅</span>
+            </th>
+            <th class="table__th sortable" data-column="position">
+              POSICIÓN <span class="sort-icon">⇅</span>
+            </th>
+            <th class="table__th sortable" data-column="country">
+              PAÍS <span class="sort-icon">⇅</span>
+            </th>
+            <th class="table__th sortable" data-column="age">
+              EDAD <span class="sort-icon">⇅</span>
+            </th>
+            <th class="table__th sortable" data-column="goals">
+              GOLES <span class="sort-icon">⇅</span>
+            </th>
+            <th class="table__th sortable" data-column="assists">
+              ASISTENCIAS <span class="sort-icon">⇅</span>
+            </th>
+            <th class="table__th sortable" data-column="rating">
+              RATING <span class="sort-icon">⇅</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody id="players-table-body" class="table__body">
+          </tbody>
+      </table>
+    </div>
+
+    <div class="pagination">
+      <div class="pagination__info">
+        MOSTRAR 
+        <select id="rows-per-page" class="pagination__select">
+          <option value="5">5 por página</option>
+          <option value="10">10 por página</option>
+        </select>
+      </div>
+      <div class="pagination__controls">
+        <button id="prev-page" class="pagination__btn">«</button>
+        <span id="current-page" class="pagination__number">1</span>
+        <button id="next-page" class="pagination__btn">»</button>
+      </div>
+    </div>
+
+  </main>
+
+  <div id="modal-detail" class="modal hidden">
+    <div class="modal__content">
+      <button id="modal-close-x" class="modal__close-btn">×</button>
+      
+      <div class="modal__header">
+        <div class="modal__title-group">
+          <h2 id="modal-name" class="modal__name">Nombre Jugador</h2>
+          <span id="modal-position" class="badge">Posición</span>
+        </div>
+        <button id="modal-fav-btn" class="btn btn--fav">★ Favorito</button>
+      </div>
+
+      <div class="modal__grid">
+        <div class="modal__info-item">
+          <strong>Club</strong>
+          <p id="modal-club">Club Name</p>
+        </div>
+        <div class="modal__info-item">
+          <strong>País</strong>
+          <p id="modal-country">País Name</p>
+        </div>
+      </div>
+
+      <div class="modal__stats-row">
+        <div>
+          <strong>Edad</strong>
+          <p id="modal-age">0 años</p>
+        </div>
+        <div>
+          <strong>Goles</strong>
+          <p id="modal-goals">0</p>
+        </div>
+        <div>
+          <strong>Asistencias</strong>
+          <p id="modal-assists">0</p>
+        </div>
+      </div>
+
+      <div class="modal__footer">
+        <span id="modal-rating" class="modal__rating">0.0</span>
+        <button id="modal-close-btn" class="btn btn--secondary">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
