@@ -1,0 +1,501 @@
+/* =========================================
+   VARIABLES Y CONFIGURACIÓN BASE (THEMING)
+   ========================================= */
+:root {
+  /* Colores Base (Modo Claro por defecto) */
+  --bg-body: #f5f6fa;          /* Gris muy claro */
+  --text-main: #333333;        /* Negro suave */
+  --text-secondary: #666666;   /* Gris para subtítulos */
+  
+  /* Colores de Marca */
+  --primary-gradient: linear-gradient(90deg, #b94b00 0%, #ff8800 100%); /* Naranja header */
+  --accent-yellow: #ffc107;    /* Amarillo estilo "Mostaza/Dorado" de las fotos */
+  --accent-black: #1a1a1a;     /* Negro de tarjetas y headers */
+  
+  /* Componentes */
+  --card-bg: #ffffff;
+  --input-bg: #ffffff;
+  --table-head-bg: #2c3e50;
+  --table-head-text: #ffffff;
+  
+  /* Espaciados */
+  --spacing-md: 20px;
+  --border-radius: 8px;
+}
+
+/* CLASE PARA MODO OSCURO (Activada con JS) */
+body.dark-mode {
+  --bg-body: #11151c;          /* Azul muy oscuro (casi negro) de tu foto */
+  --text-main: #ffffff;
+  --text-secondary: #cccccc;
+  
+  /* En modo oscuro, las tarjetas de promedios se vuelven transparentes/oscuras */
+  --card-bg: transparent; 
+  
+  /* La cabecera de la tabla se pone negra */
+  --table-head-bg: #000000;
+  --table-head-text: #ffc107; /* Texto amarillo en header tabla */
+}
+
+/* Reset Básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  padding-bottom: 50px;
+}
+
+/* =========================================
+   HEADER (ENCABEZADO)
+   ========================================= */
+.header {
+  background: var(--primary-gradient);
+  padding: 20px 40px;
+  color: white;
+  border-bottom-left-radius: 30px; /* Curva en la esquina inferior */
+  border-bottom-right-radius: 30px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  margin-bottom: 30px;
+}
+
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header__subtitle {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  opacity: 0.8;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.header__title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.header__desc {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* =========================================
+   CONTENIDO PRINCIPAL & LAYOUT
+   ========================================= */
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Botones Generales */
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+}
+
+.btn--toggle {
+  background-color: var(--accent-yellow);
+  color: #333;
+}
+
+.btn--outline {
+  background: transparent;
+  border: 1px solid #555;
+  color: var(--text-main);
+}
+body.dark-mode .btn--outline { border-color: #777; }
+
+.btn--action {
+  background-color: transparent;
+  border: 1px solid var(--accent-yellow);
+  color: var(--accent-yellow);
+  margin-right: 10px;
+}
+.btn--action:hover {
+  background-color: var(--accent-yellow);
+  color: #000;
+}
+
+/* =========================================
+   SECCIÓN DE BÚSQUEDA
+   ========================================= */
+.search-section {
+  margin-bottom: 30px;
+}
+
+.search-section__title {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.search-bar__input-wrapper {
+  position: relative;
+  flex: 1; /* Ocupa todo el espacio posible */
+}
+
+.search-bar__input {
+  width: 100%;
+  padding: 12px 15px 12px 45px; /* Padding izq para el icono */
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  background-color: white; /* Siempre blanco según fotos */
+  color: #333;
+}
+
+.search-bar__icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  background: var(--accent-yellow); /* Fondo amarillo para la lupa */
+  padding: 5px 8px;
+  border-radius: 4px;
+  left: 5px; /* Ajuste visual */
+}
+
+.search-bar__clear {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #999;
+}
+
+/* Historial (Chips) */
+.search-history {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.search-history__label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.chip {
+  background-color: var(--accent-yellow);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.search-history__clean-btn {
+  background: none;
+  border: 1px solid #555;
+  color: var(--text-secondary);
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* =========================================
+   CARDS (ESTADÍSTICAS)
+   ========================================= */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background-color: var(--card-bg);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card__title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+
+.card__value {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.card__subtext {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* Modificadores de Cards */
+.card--highlight {
+  background-color: var(--accent-yellow) !important; /* Siempre amarillo */
+  color: #000;
+}
+.card--highlight .card__title, 
+.card--highlight .card__subtext {
+  color: #333;
+}
+.card--highlight .card__badge {
+  background: #333;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.card--dark {
+  background-color: var(--accent-black) !important;
+  color: #fff;
+}
+.card--dark .card__title { color: #aaa; }
+
+/* =========================================
+   TABLA
+   ========================================= */
+.table-actions {
+  margin-bottom: 15px;
+}
+
+.table-container {
+  overflow-x: auto;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white; /* IMPORTANTE: Filas siempre blancas */
+  color: #333; /* Texto siempre negro en la tabla */
+}
+
+.table__head {
+  background-color: var(--table-head-bg);
+}
+
+.table__th {
+  padding: 15px;
+  text-align: left;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: var(--table-head-text);
+  cursor: pointer; /* Para indicar que se puede ordenar */
+  user-select: none;
+}
+
+.table__th:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+
+.table__body tr {
+  border-bottom: 1px solid #eee;
+}
+
+.table__body td {
+  padding: 12px 15px;
+  font-size: 0.95rem;
+}
+
+/* Estilos para el favorito (Estrella) */
+.fav-icon {
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #ddd; /* Desactivado */
+  transition: color 0.2s;
+}
+.fav-icon.active {
+  color: var(--accent-yellow);
+}
+
+/* Clases para pintar filas (Requerimiento del profe) */
+.row-even-highlight td {
+  background-color: #fff3cd !important; /* Amarillo muy suave */
+}
+.row-odd-highlight td {
+  background-color: #d1e7dd !important; /* Verde muy suave */
+}
+
+/* =========================================
+   PAGINACIÓN
+   ========================================= */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  color: var(--text-secondary);
+}
+
+.pagination__select {
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.pagination__controls {
+  display: flex;
+  gap: 5px;
+}
+
+.pagination__btn {
+  background: #eee;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination__number {
+  background: #ff8800;
+  color: white;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+}
+
+/* =========================================
+   MODAL (POP-UP)
+   ========================================= */
+.hidden {
+  display: none !important;
+}
+
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal__content {
+  background-color: #222; /* Fondo oscuro modal */
+  color: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.modal__close-btn {
+  position: absolute;
+  top: 15px; right: 20px;
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #444;
+  padding-bottom: 15px;
+}
+
+.modal__name {
+  font-size: 1.8rem;
+  margin-bottom: 5px;
+}
+
+.badge {
+  background-color: var(--accent-yellow);
+  color: #000;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.btn--fav {
+  background-color: transparent;
+  border: 1px solid var(--accent-yellow);
+  color: var(--accent-yellow);
+}
+
+.modal__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.modal__stats-row {
+  display: flex;
+  justify-content: space-between;
+  background: #333;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.modal__rating {
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--accent-yellow);
+}
+
+.modal__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn--secondary {
+  background-color: #555;
+  color: white;
+}
